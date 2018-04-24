@@ -1,0 +1,9 @@
+#ul1 a{
+    font: 16px Arial;
+    text-decoration:none;
+}
+
+#ul1 li{
+    list-style-type:none;
+    margin-bottom: 10px;
+}
