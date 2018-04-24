@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public class CinemaController {
     CinemaServiceImpl cinemaService;
 
     @RequestMapping("/cinema")
-    public List<Cinema> showCinemas(){
+    public List<Cinema> showCinemas() throws SQLException{
         return cinemaService.getAll();
     }
 }

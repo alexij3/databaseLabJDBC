@@ -7,7 +7,7 @@ import java.sql.*;
 
 @Component
 public class DataStorageJdbc {
-    private static final String url = "jdbc:mysql://localhost:3306/philharmonic";
+    private static final String url = "jdbc:mysql://localhost:3306/philharmonic_justbase";
     private static final String login = "root";
     private static final String password = "qwert";
 
@@ -29,5 +29,21 @@ public class DataStorageJdbc {
     }
 
     public DataStorageJdbc() throws SQLException {
+    }
+
+    public Connection getCon() {
+        return con;
+    }
+
+    public void setCon(Connection con) {
+        this.con = con;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public void setStatement(Statement statement) {
+        this.statement = statement;
     }
 }

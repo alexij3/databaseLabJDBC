@@ -1,16 +1,23 @@
 package com.buzilov.lab4db.dao.cinema;
 
 import com.buzilov.lab4db.datastorage.DataStorageFake;
+import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.Cinema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CinemaDAOImpl implements CinemaDAO {
     @Autowired
     DataStorageFake dataStorage;
+
+    @Autowired
+    DataStorageJdbc dataStorageJdbc;
 
     @Override
     public Cinema insertCinema(Cinema cinema) {
@@ -52,7 +59,15 @@ public class CinemaDAOImpl implements CinemaDAO {
     }
 
     @Override
-    public List<Cinema> getAll() {
-        return dataStorage.getCinemas();
+    public List<Cinema> getAll() throws SQLException {
+        List<Cinema> list = new ArrayList<>();
+        ResultSet rs = dataStorageJdbc.executeQuery("SELECT * FROM cinema");
+
+        while (rs.next()){
+            list.add(new Cinema(rs.getInt("id"), rs.getString("name"),
+                    rs.getString("address"), rs.getInt("screen_size")));
+        }
+
+        return list;
     }
 }

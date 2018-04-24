@@ -1,6 +1,7 @@
 package com.buzilov.lab4db.dao.impresario;
 
 import com.buzilov.lab4db.datastorage.DataStorageFake;
+import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.Impresario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,9 @@ import java.util.List;
 public class ImpresarioDAOImpl implements ImpresarioDAO{
     @Autowired
     DataStorageFake dataStorage;
+
+    @Autowired
+    DataStorageJdbc dataStorageJdbc;
 
     @Override
     public Impresario insertImpresario(Impresario impresario) {

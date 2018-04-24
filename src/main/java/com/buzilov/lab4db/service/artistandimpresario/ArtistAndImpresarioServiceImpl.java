@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.ArtistAndImpresario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class ArtistAndImpresarioServiceImpl implements ArtistAndImpresarioServic
     }
 
     @Override
-    public List<ArtistAndImpresario> getAll() {
+    public List<ArtistAndImpresario> getAll() throws SQLException {
         return artistAndImpresarioDAO.getAll();
     }
 }

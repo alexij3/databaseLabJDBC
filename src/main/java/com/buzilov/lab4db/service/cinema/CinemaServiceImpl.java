@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.Cinema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public List<Cinema> getAll() {
+    public List<Cinema> getAll() throws SQLException{
         return cinemaDAO.getAll();
     }
 }

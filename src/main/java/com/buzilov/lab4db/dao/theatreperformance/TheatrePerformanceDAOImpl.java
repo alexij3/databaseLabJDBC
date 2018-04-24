@@ -1,6 +1,7 @@
 package com.buzilov.lab4db.dao.theatreperformance;
 
 import com.buzilov.lab4db.datastorage.DataStorageFake;
+import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.TheatrePerformance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,9 @@ import java.util.List;
 public class TheatrePerformanceDAOImpl implements TheatrePerformanceDAO {
     @Autowired
     DataStorageFake dataStorage;
+
+    @Autowired
+    DataStorageJdbc dataStorageJdbc;
 
     @Override
     public TheatrePerformance insertTheatrePerformance(TheatrePerformance theatrePerformance) {

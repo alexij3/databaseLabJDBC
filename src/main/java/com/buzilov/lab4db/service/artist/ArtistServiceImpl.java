@@ -14,23 +14,23 @@ public class ArtistServiceImpl implements ArtistService {
     ArtistDAOImpl artistDAO;
 
     @Override
-    public Artist insertArtist(Artist artist) {
+    public Artist insertArtist(Artist artist)throws SQLException {
         return artistDAO.insertArtist(artist);
     }
 
     @Override
-    public Artist getArtist(int id) {
+    public Artist getArtist(int id)throws SQLException {
         return artistDAO.getArtist(id);
     }
 
     @Override
-    public Artist updateArtist(Artist artist) {
+    public Artist updateArtist(Artist artist)  throws  SQLException{
         return artistDAO.updateArtist(artist);
     }
 
     @Override
-    public Artist deleteArtist(int id) {
-        return artistDAO.deleteArtist(id);
+    public void deleteArtist(int id) throws SQLException{
+        artistDAO.deleteArtist(id);
     }
 
     @Override

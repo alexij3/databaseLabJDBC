@@ -1,6 +1,7 @@
 package com.buzilov.lab4db.dao.contestresults;
 
 import com.buzilov.lab4db.datastorage.DataStorageFake;
+import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.ContestResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,9 @@ import java.util.List;
 public class ContestResultsDAOImpl implements ContestResultsDAO {
     @Autowired
     DataStorageFake dataStorage;
+
+    @Autowired
+    DataStorageJdbc dataStorageJdbc;
 
     @Override
     public ContestResults insertContestResults(ContestResults contestResults ) {

@@ -2,6 +2,7 @@ package com.buzilov.lab4db.service.cinema;
 
 import com.buzilov.lab4db.model.Cinema;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CinemaService {
@@ -9,5 +10,5 @@ public interface CinemaService {
     Cinema getCinema(int id);
     Cinema updateCinema(Cinema cinema);
     Cinema deleteCinema(int id);
-    List<Cinema> getAll();
+    List<Cinema> getAll() throws SQLException;
 }

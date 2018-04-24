@@ -1,6 +1,7 @@
 package com.buzilov.lab4db.dao.concertinhall;
 
 import com.buzilov.lab4db.datastorage.DataStorageFake;
+import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.ConcertInHall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,9 @@ import java.util.List;
 public class ConcertInHallDAOImpl implements ConcertInHallDAO {
     @Autowired
     DataStorageFake dataStorage;
+
+    @Autowired
+    DataStorageJdbc dataStorageJdbc;
 
     @Override
     public ConcertInHall insertConcertInHall(ConcertInHall concertInHall) {
