@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.Organizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,27 +14,27 @@ public class OrganizerServiceImpl implements OrganizerService {
     OrganizerDAOImpl organizerDAO;
 
     @Override
-    public Organizer insertOrganizer(Organizer organizer) {
-        return organizerDAO.insertOrganizer(organizer);
+    public Organizer insert(Organizer organizer) throws SQLException {
+        return organizerDAO.insert(organizer);
     }
 
     @Override
-    public Organizer getOrganizer(int id) {
-        return organizerDAO.getOrganizer(id);
+    public Organizer get(int id) throws SQLException {
+        return organizerDAO.get(id);
     }
 
     @Override
-    public Organizer updateOrganizer(Organizer organizer) {
-        return organizerDAO.updateOrganizer(organizer);
+    public Organizer update(Organizer organizer) throws SQLException {
+        return organizerDAO.update(organizer);
     }
 
     @Override
-    public Organizer deleteOrganizer(int id) {
-        return organizerDAO.deleteOrganizer(id);
+    public void delete(int id) throws SQLException {
+        organizerDAO.delete(id);
     }
 
     @Override
-    public List<Organizer> getAll() {
+    public List<Organizer> getAll() throws SQLException {
         return organizerDAO.getAll();
     }
 }

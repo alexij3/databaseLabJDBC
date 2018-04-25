@@ -6,6 +6,8 @@ import com.buzilov.lab4db.model.Theatre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,47 +18,89 @@ public class TheatreDAOImpl implements TheatreDAO {
     @Autowired
     DataStorageJdbc dataStorageJdbc;
 
+    Connection con;
+    Statement statement;
+
     @Override
-    public Theatre insertTheatre(Theatre theatre) {
-        dataStorage.getTheatres().add(theatre);
+    public Theatre insert(Theatre theatre) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement insert;
+        String insertTheatre = "INSERT INTO theatre (name, address, capacity) VALUES (?, ?, ?)";
+        insert = con.prepareStatement(insertTheatre);
+
+        insert.setString(1, theatre.getName());
+        insert.setString(2, theatre.getAddress());
+        insert.setInt(3, theatre.getCapacity());
+        insert.executeUpdate();
+
+        con.close();
         return theatre;
     }
 
     @Override
-    public Theatre getTheatre(int id) {
-        return dataStorage.getTheatres().stream()
-                .filter(el -> el.getId() == id)
-                .findFirst().orElse(null);
-    }
+    public Theatre get(int id) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
 
-    @Override
-    public Theatre updateTheatre(Theatre theatre) {
-        for(Theatre t: dataStorage.getTheatres())
-        {
-            if(t.getId() == t.getId())
-            {
-                t.setName(t.getName());
-                t.setAddress(t.getAddress());
-                t.setCapacity(t.getCapacity());
-                break;
-            }
+        PreparedStatement get;
+        String getTheatre = "SELECT * FROM theatre WHERE id = ?";
+        get = con.prepareStatement(getTheatre);
+        get.setInt(1, id);
+        ResultSet rs = get.executeQuery();
+        Theatre theatre = null;
+        if (rs.next()){
+            theatre = new Theatre(rs.getInt("id"), rs.getString("name"), rs.getString("address"),
+                    rs.getInt("capacity"));
         }
+
+        con.close();
         return theatre;
     }
 
     @Override
-    public Theatre deleteTheatre(int id) {
-        Theatre theatre = dataStorage.getTheatres()
-                .stream()
-                .filter(el -> el.getId() == id)
-                .findFirst()
-                .get();
-        dataStorage.getTheatres().remove(theatre);
+    public Theatre update(Theatre theatre) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        PreparedStatement update;
+        String updateTheatre = "UPDATE theatre SET name = ?, address = ?, capacity = ? WHERE id = ?";
+        System.out.println(theatre);
+        update = con.prepareStatement(updateTheatre);
+        update.setString(1, theatre.getName());
+        update.setString(2, theatre.getAddress());
+        update.setInt(3, theatre.getCapacity());
+        update.setInt(4, theatre.getId());
+        update.executeUpdate();
+
+        con.close();
         return theatre;
     }
 
     @Override
-    public List<Theatre> getAll() {
-        return dataStorage.getTheatres();
+    public void delete(int id) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement delete;
+        String deleteTheatre = "DELETE FROM theatre WHERE id = ?";
+        delete = con.prepareStatement(deleteTheatre);
+        delete.setInt(1, id);
+        delete.executeUpdate();
+
+        con.close();
+    }
+
+    @Override
+    public List<Theatre> getAll() throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        statement = con.createStatement();
+        List<Theatre> list = new ArrayList<>();
+        ResultSet rs = dataStorageJdbc.executeQuery("SELECT * FROM theatre");
+
+        while (rs.next()){
+            list.add(new Theatre(rs.getInt("id"), rs.getString("name"),
+                    rs.getString("address"), rs.getInt("capacity")));
+        }
+
+        con.close();
+        statement.close();
+        return list;
     }
 }

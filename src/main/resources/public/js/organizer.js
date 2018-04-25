@@ -19,10 +19,8 @@ app.controller("OrganizerCtrl", function($scope, $http){
 
     this.createOrganizer = function createOrganizer(){
         var name = document.getElementById('organizerName').value;
-        $http.get('/api/organizer/create?name=' + name).success(
-            console.log('created organizer with name ' + name)
-        ).then(function(){
-            window.parent.location.reload();
+        $http.get('/api/organizer/create?name=' + name).then(function(){
+            window.location.reload();
         });
     };
 
@@ -43,6 +41,7 @@ app.controller("OrganizerCtrl", function($scope, $http){
         };
 
         $http(request).then(function (response){
+            window.location.reload();
             console.log(response);
         })
     }

@@ -7,41 +7,70 @@ app.controller("ArtistGenreCtrl", function($scope, $http) {
     $scope.artists = [];
     $http.get('/api/artistgenre/showgenres').then(function (response) {
         $scope.artists = response.data;
-        startAddGenre(1, 'Бойчук Олег Станіславович');
-        addGenre();
     });
 
 
     this.startAddGenre = function startAddGenre(id, name) {
         artistId = id;
         document.getElementById('labelArtist').innerHTML = name;
+
+
     };
 
     this.addGenre = function addGenre(){
-        $http.get('/api/artist/get?id=' + artistId).then(function(response){
-            var artistToGet;
-
-
-            genres = $scope.selectedGenres;
-            artistToGet = response.data;
-            window.alert("in loop with artist " + artistToGet.name + " and genre " + genres[0]);
+        genres = $scope.selectedGenres;
+        for (var i = 0; i < genres.length; i++){
             var request = {
                 method: 'PUT',
-                url: '/api/artistgenre/insertgenre',
+                url: '/api/artistgenre/insertgenre?id=' + artistId,
                 data: {
-                    artist: artistToGet,
-                    genre: "Фантастика"
+                    artist : null,
+                    genre : genres[i]
                 }
             };
-            $http(request).then(function (response) {
-                window.alert(response);
-            });
-            window.alert(response.data.name);
-        });
 
-        genres = [];
-        window.alert(response.data.name);
-        echo("");
+            $http(request).then(function(){
+                window.location.reload();
+            });
+        }
+    };
+
+    this.startUpdateGenres = function startUpdateGenres(id, name){
+        artistId = id;
+        document.getElementById('updLabelArtist').innerHTML = name;
+        document.getElementById('selectedGenre').value = "Комедія";
+
+    };
+
+    this.updateGenre = function updateGenre(){
+        var genre = document.getElementById('selectGenre').value;
+        var request = {
+            method: 'PUT',
+            url: '/api/artistgenre/updategenre?id=' + artistId,
+            data: {
+                artist : null,
+                genre : genre
+            }
+        };
+
+        $http(request).then(function(){
+            window.location.reload();
+        });
+    };
+
+    this.deleteGenre = function deleteGenre(artistId, genreName){
+        var request = {
+            method: 'POST',
+            url: '/api/artistgenre/deletegenre?id=' + artistId,
+            data: {
+                artist : null,
+                genre : genreName
+            }
+        };
+
+        $http(request).then(function(response){
+            window.location.reload();
+        });
     }
 });
 

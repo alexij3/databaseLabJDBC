@@ -7,9 +7,7 @@ import com.buzilov.lab4db.model.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +16,47 @@ public class ArtistGenreDAOImpl implements ArtistGenreDAO {
     @Autowired
     DataStorageJdbc dataStorageJdbc;
 
+    Connection con;
+    Statement statement;
+
+    @Override
+    public ArtistGenre get(int id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArtistGenre update(ArtistGenre artistGenre) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement update;
+        String updateArtistGenre = "UPDATE artist_and_genre SET genre = ? WHERE id_artist = ?";
+        update = dataStorageJdbc.getCon().prepareStatement(updateArtistGenre);
+        update.setString(1, artistGenre.getGenre().toString());
+        update.setInt(2, artistGenre.getArtist().getId());
+        update.executeUpdate();
+
+        con.close();
+        return artistGenre;
+    }
+
+    @Override
+    public void delete(int id, Genre genre) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement delete;
+        String deleteArtistGenre = "DELETE FROM artist_and_genre WHERE id_artist = ? AND genre = ?";
+        delete = con.prepareStatement(deleteArtistGenre);
+        delete.setInt(1, id);
+        delete.setString(2, genre.toString());
+        delete.executeUpdate();
+
+        con.close();
+    }
+
     @Override
     public ArtistGenre insert(ArtistGenre artistGenre) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
         PreparedStatement insert;
         String insertArtistGenre = "INSERT INTO artist_and_genre (id_artist, genre) VALUES (?, ?)";
         insert = dataStorageJdbc.getCon().prepareStatement(insertArtistGenre);
@@ -27,11 +64,15 @@ public class ArtistGenreDAOImpl implements ArtistGenreDAO {
         insert.setString(2, artistGenre.getGenre().toString());
         insert.executeUpdate();
 
+        con.close();
         return artistGenre;
     }
 
     @Override
     public List<ArtistGenre> getAll() throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        statement = con.createStatement();
+
         List<ArtistGenre> list = new ArrayList<>();
         ResultSet rs = dataStorageJdbc.executeQuery("SELECT artist.id, name, genre FROM artist_and_genre RIGHT OUTER JOIN artist\n" +
                 "ON artist_and_genre.id_artist = artist.id");
@@ -41,6 +82,8 @@ public class ArtistGenreDAOImpl implements ArtistGenreDAO {
             if (rs.getString("genre") != null) list.get(list.size()-1).setGenre(Genre.valueOf(rs.getString("genre")));
         }
 
+        statement.close();
+        con.close();
         return list;
     }
 }

@@ -32,10 +32,8 @@ app.controller("TheatreCtrl", function($scope, $http){
             }
         };
 
-        $http(createRequest).success(
-            console.log('created theatre with name ' + name)
-        ).then(function(){
-            window.parent.location.reload();
+        $http(createRequest).then(function(){
+            window.location.reload();
         });
     };
 
@@ -63,6 +61,7 @@ app.controller("TheatreCtrl", function($scope, $http){
         };
 
         $http(request).then(function (response){
+            window.location.reload();
             console.log(response);
         })
     }

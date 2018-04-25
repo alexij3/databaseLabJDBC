@@ -6,6 +6,15 @@ public class Theatre {
     private String address;
     private int capacity;
 
+    public Theatre() {
+    }
+
+    public Theatre(String name, String address, int capacity) {
+        this.name = name;
+        this.address = address;
+        this.capacity = capacity;
+    }
+
     public Theatre(Integer id, String name, String address, int capacity) {
         this.id = id;
         this.name = name;

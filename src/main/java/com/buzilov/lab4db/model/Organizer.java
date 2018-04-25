@@ -4,6 +4,13 @@ public class Organizer {
     private int id;
     private String name;
 
+    public Organizer() {
+    }
+
+    public Organizer(String name) {
+        this.name = name;
+    }
+
     public Organizer(int id, String name) {
         this.id = id;
         this.name = name;
