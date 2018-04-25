@@ -31,10 +31,8 @@ app.controller("CulturePalaceCtrl", function($scope, $http){
             }
         };
 
-        $http(createRequest).success(
-            console.log('created culturePalace with name ' + name)
-        ).then(function(){
-            window.parent.location.reload();
+        $http(createRequest).then(function(){
+            window.location.reload();
         });
     };
 
@@ -63,7 +61,8 @@ app.controller("CulturePalaceCtrl", function($scope, $http){
 
         $http(request).then(function (response){
             console.log(response);
-        })
+            window.location.reload();
+        });
     }
 });
 

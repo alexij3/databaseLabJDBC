@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.CulturePalace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,27 +14,27 @@ public class CulturePalaceServiceImpl implements CulturePalaceService {
     CulturePalaceDAOImpl culturePalaceDAO;
 
     @Override
-    public CulturePalace insertCulturePalace(CulturePalace culturePalace) {
-        return culturePalaceDAO.insertCulturePalace(culturePalace);
+    public CulturePalace insert(CulturePalace culturePalace) throws SQLException {
+        return culturePalaceDAO.insert(culturePalace);
     }
 
     @Override
-    public CulturePalace getCulturePalace(int id) {
-        return culturePalaceDAO.getCulturePalace(id);
+    public CulturePalace get(int id)throws SQLException  {
+        return culturePalaceDAO.get(id);
     }
 
     @Override
-    public CulturePalace updateCulturePalace(CulturePalace culturePalace) {
-        return culturePalaceDAO.updateCulturePalace(culturePalace);
+    public CulturePalace update(CulturePalace culturePalace)throws SQLException  {
+        return culturePalaceDAO.update(culturePalace);
     }
 
     @Override
-    public CulturePalace deleteCulturePalace(int id) {
-        return culturePalaceDAO.deleteCulturePalace(id);
+    public void delete(int id) throws SQLException  {
+        culturePalaceDAO.delete(id);
     }
 
     @Override
-    public List<CulturePalace> getAll() {
+    public List<CulturePalace> getAll()throws SQLException  {
         return culturePalaceDAO.getAll();
     }
 }

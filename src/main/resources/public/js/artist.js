@@ -39,7 +39,8 @@ app.controller("ArtistCtrl", function($scope, $http){
         window.location.reload();
     };
 
-    this.startUpdateArtist = function startUpdateArtist(id){
+    this.startUpdateArtist = function startUpdateArtist(id, name){
+        document.getElementById('updateArtistName').value = name;
         idToUpdate = id;
     };
 

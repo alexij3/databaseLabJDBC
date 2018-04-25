@@ -6,6 +6,9 @@ public class CulturePalace {
     private String address;
     private int capacity;
 
+    public CulturePalace() {
+    }
+
     public CulturePalace(int id, String name, String address, int capacity) {
         this.id = id;
         this.name = name;

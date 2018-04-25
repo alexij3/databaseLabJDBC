@@ -6,6 +6,8 @@ import com.buzilov.lab4db.model.CulturePalace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,47 +18,89 @@ public class CulturePalaceDAOImpl implements CulturePalaceDAO {
     @Autowired
     DataStorageJdbc dataStorageJdbc;
 
+    Connection con;
+    Statement statement;
+
     @Override
-    public CulturePalace insertCulturePalace(CulturePalace culturePalace) {
-        dataStorage.getCulturePalaces().add(culturePalace);
+    public CulturePalace insert(CulturePalace culturePalace) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement insert;
+        String insertMovie = "INSERT INTO culture_palace (name, address, capacity) VALUES (?, ?, ?)";
+        insert = con.prepareStatement(insertMovie);
+
+        insert.setString(1, culturePalace.getName());
+        insert.setString(2, culturePalace.getAddress());
+        insert.setInt(3, culturePalace.getCapacity());
+        insert.executeUpdate();
+
+        con.close();
         return culturePalace;
     }
 
     @Override
-    public CulturePalace getCulturePalace(int id) {
-        return dataStorage.getCulturePalaces().stream()
-                .filter(el -> el.getId() == id)
-                .findFirst().orElse(null);
-    }
+    public CulturePalace get(int id) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
 
-    @Override
-    public CulturePalace updateCulturePalace(CulturePalace culturePalace) {
-        for(CulturePalace palace: dataStorage.getCulturePalaces())
-        {
-            if(palace.getId() == culturePalace.getId())
-            {
-                palace.setName(culturePalace.getName());
-                palace.setAddress(culturePalace.getAddress());
-                palace.setCapacity(culturePalace.getCapacity());
-                break;
-            }
+        PreparedStatement get;
+        String getCulturePalace = "SELECT * FROM culture_palace WHERE id = ?";
+        get = con.prepareStatement(getCulturePalace);
+        get.setInt(1, id);
+        ResultSet rs = get.executeQuery();
+        CulturePalace culturePalace = null;
+        if (rs.next()){
+            culturePalace = new CulturePalace(rs.getInt("id"), rs.getString("name"), rs.getString("address"),
+                    rs.getInt("capacity"));
         }
+
+        con.close();
         return culturePalace;
     }
 
     @Override
-    public CulturePalace deleteCulturePalace(int id) {
-        CulturePalace culturePalace = dataStorage.getCulturePalaces()
-                .stream()
-                .filter(el -> el.getId() == id)
-                .findFirst()
-                .get();
-        dataStorage.getCulturePalaces().remove(culturePalace);
+    public CulturePalace update(CulturePalace culturePalace) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        PreparedStatement update;
+        String updateCulturePalace = "UPDATE culture_palace SET name = ?, address = ?, capacity = ? WHERE id = ?";
+        System.out.println(culturePalace);
+        update = con.prepareStatement(updateCulturePalace);
+        update.setString(1, culturePalace.getName());
+        update.setString(2, culturePalace.getAddress());
+        update.setInt(3, culturePalace.getCapacity());
+        update.setInt(4, culturePalace.getId());
+        update.executeUpdate();
+
+        con.close();
         return culturePalace;
     }
 
     @Override
-    public List<CulturePalace> getAll() {
-        return dataStorage.getCulturePalaces();
+    public void delete(int id) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement delete;
+        String deleteCulturePalace = "DELETE FROM culture_palace WHERE id = ?";
+        delete = con.prepareStatement(deleteCulturePalace);
+        delete.setInt(1, id);
+        delete.executeUpdate();
+
+        con.close();
+    }
+
+    @Override
+    public List<CulturePalace> getAll() throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        statement = con.createStatement();
+        List<CulturePalace> list = new ArrayList<>();
+        ResultSet rs = dataStorageJdbc.executeQuery("SELECT * FROM culture_palace");
+
+        while (rs.next()){
+            list.add(new CulturePalace(rs.getInt("id"), rs.getString("name"),
+                    rs.getString("address"), rs.getInt("capacity")));
+        }
+
+        con.close();
+        statement.close();
+        return list;
     }
 }

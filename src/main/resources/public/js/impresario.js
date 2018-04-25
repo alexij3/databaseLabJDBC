@@ -18,15 +18,14 @@ app.controller("ImpresarioCtrl", function($scope, $http){
     };
 
     this.createImpresario = function createImpresario(){
-        var name = document.getElementById('impresarioName').value;
-        $http.get('/api/impresario/create?name=' + name).success(
-            console.log('created impresario with name ' + name)
-        ).then(function(){
-            window.parent.location.reload();
+        var name = document.getElementById('ImpresarioName').value;
+        $http.put('/api/impresario/create?name=' + name).then(function(){
+            window.location.reload();
         });
     };
 
-    this.startUpdateImpresario = function startUpdateImpresario(id){
+    this.startUpdateImpresario = function startUpdateImpresario(id, name){
+        document.getElementById('updateImpresarioName').value = name;
         idToUpdate = id;
     };
 
@@ -41,6 +40,7 @@ app.controller("ImpresarioCtrl", function($scope, $http){
         };
 
         $http(request).then(function (response){
+            window.location.reload();
             console.log(response);
         })
     }

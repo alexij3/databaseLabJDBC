@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.Impresario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,27 +14,27 @@ public class ImpresarioServiceImpl implements ImpresarioService {
     ImpresarioDAOImpl impresarioDAO;
 
     @Override
-    public Impresario insertImpresario(Impresario impresario) {
-        return impresarioDAO.insertImpresario(impresario);
+    public Impresario insert(Impresario impresario) throws SQLException {
+        return impresarioDAO.insert(impresario);
     }
 
     @Override
-    public Impresario getImpresario(int id) {
-        return impresarioDAO.getImpresario(id);
+    public Impresario get(int id) throws SQLException  {
+        return impresarioDAO.get(id);
     }
 
     @Override
-    public Impresario updateImpresario(Impresario impresario) {
-        return impresarioDAO.updateImpresario(impresario);
+    public Impresario update(Impresario impresario) throws SQLException  {
+        return impresarioDAO.update(impresario);
     }
 
     @Override
-    public Impresario deleteImpresario(int id) {
-        return impresarioDAO.deleteImpresario(id);
+    public void delete(int id) throws SQLException  {
+        impresarioDAO.delete(id);
     }
 
     @Override
-    public List<Impresario> getAll() {
+    public List<Impresario> getAll() throws SQLException  {
         return impresarioDAO.getAll();
     }
 }

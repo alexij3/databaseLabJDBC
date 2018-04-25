@@ -5,6 +5,7 @@ import com.buzilov.lab4db.model.ConcertHall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -13,27 +14,27 @@ public class ConcertHallServiceImpl implements ConcertHallService{
     ConcertHallDAOImpl concertHallDAO;
 
     @Override
-    public ConcertHall insertConcertHall(ConcertHall concertHall) {
-        return concertHallDAO.insertConcertHall(concertHall);
+    public ConcertHall insert(ConcertHall concertHall) throws SQLException {
+        return concertHallDAO.insert(concertHall);
     }
 
     @Override
-    public ConcertHall getConcertHall(int id) {
-        return concertHallDAO.getConcertHall(id);
+    public ConcertHall get(int id) throws SQLException {
+        return concertHallDAO.get(id);
     }
 
     @Override
-    public ConcertHall updateConcertHall(ConcertHall concertHall) {
-        return concertHallDAO.updateConcertHall(concertHall);
+    public ConcertHall update(ConcertHall concertHall) throws SQLException {
+        return concertHallDAO.update(concertHall);
     }
 
     @Override
-    public ConcertHall deleteConcertHall(int id) {
-        return concertHallDAO.deleteConcertHall(id);
+    public void delete(int id) throws SQLException {
+        concertHallDAO.delete(id);
     }
 
     @Override
-    public List<ConcertHall> getAll() {
+    public List<ConcertHall> getAll() throws SQLException {
         return concertHallDAO.getAll();
     }
 }

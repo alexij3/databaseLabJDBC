@@ -1,10 +1,13 @@
 package com.buzilov.lab4db.model;
 
 public class ConcertHall{
-    private int id;
+    private Integer id;
     private String name;
     private String address;
     private int capacity;
+
+    public ConcertHall() {
+    }
 
     public ConcertHall(int id, String name, String address, int capacity) {
         this.id = id;

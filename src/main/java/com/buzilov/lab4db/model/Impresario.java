@@ -6,7 +6,13 @@ import java.util.Set;
 public class Impresario {
     private Integer id;
     private String name;
-    private Set<Genre> genres = new HashSet<>();
+
+    public Impresario() {
+    }
+
+    public Impresario(String name) {
+        this.name = name;
+    }
 
     public Impresario(Integer id, String name) {
         this.id = id;
@@ -16,10 +22,7 @@ public class Impresario {
     public Impresario(Integer id, String name, Set<Genre> genres) {
         this.id = id;
         this.name = name;
-        this.genres = genres;
     }
-
-
 
     public Integer getId() {
         return id;
@@ -36,6 +39,8 @@ public class Impresario {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -61,13 +66,5 @@ public class Impresario {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public Set<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
     }
 }
