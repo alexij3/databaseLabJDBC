@@ -33,7 +33,7 @@ public class DataStorageFake {
 
     public Genre genres;
 
-    public List<Artist> artists = new ArrayList<>(
+    /*public List<Artist> artists = new ArrayList<>(
             Arrays.asList(
                     new Artist(1, "Бойчук Олег Станіславович",
                             Set.of(Genre.Комедія, Genre.Боєвик, Genre.Фантастика)),
@@ -74,7 +74,7 @@ public class DataStorageFake {
                     new Artist(19, "Слон Максим Євгенійович",
                             Set.of(Genre.Натюрморт, Genre.Портрет, Genre.Пейзаж, Genre.Скульптура, Genre.Різьблення))
             )
-    );
+    );*/
 
 
     public List<Impresario> impresarios = new ArrayList<>(
@@ -95,7 +95,7 @@ public class DataStorageFake {
             )
     );
 
-    public List<ArtistAndImpresario> artistAndImpresarios = new ArrayList<>(
+    /*public List<ArtistAndImpresario> artistAndImpresarios = new ArrayList<>(
             Arrays.asList(
                     new ArtistAndImpresario(artists.get(0), impresarios.get(0)),
                     new ArtistAndImpresario(artists.get(0), impresarios.get(1)),
@@ -106,7 +106,7 @@ public class DataStorageFake {
                     new ArtistAndImpresario(artists.get(2), impresarios.get(3)),
                     new ArtistAndImpresario(artists.get(5), impresarios.get(5))
             )
-    );
+    );*/
 
     public List<Cinema> cinemas = new ArrayList<>(
             Arrays.asList(
@@ -221,7 +221,7 @@ public class DataStorageFake {
             )
     );
 
-    public List<ContestResults> contestResults = new ArrayList<>(
+    /*public List<ContestResults> contestResults = new ArrayList<>(
             Arrays.asList(
                     new ContestResults(contestsInPalaces.get(0), artists.get(11), 1, 'Y'),
                     new ContestResults(contestsInPalaces.get(0), artists.get(15), 2, 'Y'),
@@ -229,7 +229,7 @@ public class DataStorageFake {
                     new ContestResults(contestsInPalaces.get(0), artists.get(17), 4, 'N'),
                     new ContestResults(contestsInPalaces.get(0), artists.get(18), 5, 'N')
             )
-    );
+    );*/
 
 
     public List<Theatre> theatres = new ArrayList<>(
@@ -269,7 +269,7 @@ public class DataStorageFake {
     }
 
     public List<ContestResults> getContestResults() {
-        return contestResults;
+        return null;
     }
 
     public List<Theatre> getTheatres() {
@@ -301,13 +301,13 @@ public class DataStorageFake {
     }
 
     public List<Artist> getArtists() {
-        return artists;
+        return null;
     }
     public List<Impresario> getImpresarios() {
         return impresarios;
     }
     public List<ArtistAndImpresario> getArtistAndImpresarios() {
-        return artistAndImpresarios;
+        return null;
     }
     public List<Cinema> getCinemas() {
         return cinemas;

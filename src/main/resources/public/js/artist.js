@@ -27,14 +27,12 @@ app.controller("ArtistCtrl", function($scope, $http){
             method: 'PUT',
             url: '/api/artist/create?id=' + id,
             data: {
-                name: name,
-                genres : genres
+                name: name
             }
         };
 
-        $http(createRequest).then(function(){
-            console.log('created artist with name ' + name);
-
+        $http(createRequest).then(function(response){
+            console.log(response);
         });
 
         genres = [];
@@ -60,6 +58,11 @@ app.controller("ArtistCtrl", function($scope, $http){
         });
 
         window.location.reload();
+    };
+
+    this.getArtist = function getArtist(id){
+        $http.get('/api/artist/get?id=' + id);
+        $scope.artists;
     }
 });
 

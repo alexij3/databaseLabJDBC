@@ -1,11 +1,10 @@
 var app = angular.module("demo", []);
 
 app.controller("CinemaCtrl", function($scope, $http){
-
     var idToUpdate;
 
     $scope.cinemas = [];
-     $http.get('/api/cinema/showAll').then(function (response){
+     $http.get('/api/cinema/showall').then(function (response){
         $scope.cinemas=response.data;
         console.log(response);
     });

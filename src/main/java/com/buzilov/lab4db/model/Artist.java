@@ -6,15 +6,8 @@ import java.util.Set;
 public class Artist {
     private Integer id;
     private String name;
-    private Set<Genre> genres = new HashSet<>();
 
     public Artist(){}
-
-    public Artist(Integer id, String name, Set<Genre> genres) {
-        this.id = id;
-        this.name = name;
-        this.genres = genres;
-    }
 
     public Artist(Integer id, String name) {
         this.id = id;
@@ -30,7 +23,7 @@ public class Artist {
 
         if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
         if (name != null ? !name.equals(artist.name) : artist.name != null) return false;
-        return genres != null ? genres.equals(artist.genres) : artist.genres == null;
+        return false;
     }
 
     @Override
@@ -54,10 +47,6 @@ public class Artist {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Genre> getGenres() {
-        return genres;
     }
 
     @Override

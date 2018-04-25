@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class ArtistDAOImpl implements ArtistDAO{
@@ -29,28 +27,22 @@ public class ArtistDAOImpl implements ArtistDAO{
         insert.setString(2, artist.getName());
         insert.executeUpdate();
 
-        if (artist.getGenres() != null){
-            PreparedStatement insertGenre;
-            String insertArtistGenres = "INSERT INTO artist_and_genre (id_artist, genre) VALUES (?, ?)";
-            insertGenre = dataStorageJdbc.getCon().prepareStatement(insertArtistGenres);
-
-            Iterator<Genre> genreIterator = artist.getGenres().iterator();
-            while(genreIterator.hasNext()){
-                insertGenre.setInt(1, artist.getId());
-                insertGenre.setString(2, genreIterator.next().toString());
-                insertGenre.executeUpdate();
-            }
-
-        }
-
         return artist;
     }
 
     @Override
     public Artist getArtist(int id) throws SQLException{
-        return dataStorage.getArtists().stream()
-                .filter(el -> el.getId() == id)
-                .findFirst().orElse(null);
+        PreparedStatement get;
+        String getArtist = "SELECT * FROM artist WHERE id = ?";
+        get = dataStorageJdbc.getCon().prepareStatement(getArtist);
+        get.setInt(1, id);
+        ResultSet rs = get.executeQuery();
+        Artist artist = null;
+        if (rs.next()){
+            artist = new Artist(rs.getInt("id"), rs.getString("name"));
+        }
+
+        return artist;
     }
 
     @Override
@@ -77,15 +69,12 @@ public class ArtistDAOImpl implements ArtistDAO{
     @Override
     public List<Artist> getAll() throws SQLException{
         List<Artist> list = new ArrayList<>();
-        ResultSet rs = dataStorageJdbc.executeQuery("SELECT id, name, genre FROM artist LEFT JOIN artist_and_genre" +
-                                                    "\nON id = id_artist");
+        ResultSet rs = dataStorageJdbc.executeQuery("SELECT * FROM artist");
 
         while (rs.next()){
             list.add(new Artist(rs.getInt("id"), rs.getString("name")));
-            int id = rs.getInt("id");
-            if (rs.getString("genre") != null)
-                list.stream().filter(el -> el.getId() == id).findFirst().get().getGenres().add(Genre.valueOf(rs.getString("genre")));
         }
+
 
         return list;
     }

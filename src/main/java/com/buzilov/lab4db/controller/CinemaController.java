@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cinema")
 public class CinemaController {
     @Autowired
     CinemaServiceImpl cinemaService;
 
-    @RequestMapping("/cinema")
+    @RequestMapping("/showall")
     public List<Cinema> showCinemas() throws SQLException{
         return cinemaService.getAll();
     }
