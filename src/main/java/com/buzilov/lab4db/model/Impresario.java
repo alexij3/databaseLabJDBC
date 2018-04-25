@@ -10,16 +10,12 @@ public class Impresario {
     public Impresario() {
     }
 
+
     public Impresario(String name) {
         this.name = name;
     }
 
     public Impresario(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Impresario(Integer id, String name, Set<Genre> genres) {
         this.id = id;
         this.name = name;
     }

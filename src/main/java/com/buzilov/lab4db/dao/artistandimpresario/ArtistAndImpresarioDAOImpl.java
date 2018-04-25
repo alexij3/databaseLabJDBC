@@ -4,6 +4,7 @@ import com.buzilov.lab4db.datastorage.DataStorageFake;
 import com.buzilov.lab4db.datastorage.DataStorageJdbc;
 import com.buzilov.lab4db.model.Artist;
 import com.buzilov.lab4db.model.ArtistAndImpresario;
+import com.buzilov.lab4db.model.Genre;
 import com.buzilov.lab4db.model.Impresario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,17 @@ public class ArtistAndImpresarioDAOImpl implements ArtistAndImpresarioDAO{
 
     @Override
     public ArtistAndImpresario insert(ArtistAndImpresario artistAndImpresario) throws SQLException {
-        return null;
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement insert;
+        String insertArtistAndImpresario = "INSERT INTO artist_and_impresario (id_artist, id_impresario) VALUES (?, ?)";
+        insert = con.prepareStatement(insertArtistAndImpresario);
+        insert.setInt(1, artistAndImpresario.getArtist().getId());
+        insert.setInt(2, artistAndImpresario.getImpresario().getId());
+        insert.executeUpdate();
+
+        con.close();
+        return artistAndImpresario;
     }
 
     @Override
@@ -40,8 +51,8 @@ public class ArtistAndImpresarioDAOImpl implements ArtistAndImpresarioDAO{
         System.out.println(artistAndImpresario.getArtist().getId());
         System.out.println(artistAndImpresario.getImpresario().toString());
         PreparedStatement update;
-        String updateArtistGenre = "UPDATE artist_and_impresario SET id_impresario = ? WHERE id_artist = ?";
-        update = con.prepareStatement(updateArtistGenre);
+        String updateArtistAndImpresario = "UPDATE artist_and_impresario SET id_impresario = ? WHERE id_artist = ?";
+        update = con.prepareStatement(updateArtistAndImpresario);
         update.setInt(1, artistAndImpresario.getImpresario().getId());
         update.setInt(2, artistAndImpresario.getArtist().getId());
         System.out.println(update.executeUpdate());
@@ -55,8 +66,8 @@ public class ArtistAndImpresarioDAOImpl implements ArtistAndImpresarioDAO{
         con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
 
         PreparedStatement delete;
-        String deleteArtistGenre = "DELETE FROM artist_and_impresario WHERE id_artist = ? AND id_impresario = ?";
-        delete = con.prepareStatement(deleteArtistGenre);
+        String deleteArtistAndImpresario = "DELETE FROM artist_and_impresario WHERE id_artist = ? AND id_impresario = ?";
+        delete = con.prepareStatement(deleteArtistAndImpresario);
         delete.setInt(1, id);
         delete.setInt(2, impresarioId);
         delete.executeUpdate();
@@ -66,6 +77,21 @@ public class ArtistAndImpresarioDAOImpl implements ArtistAndImpresarioDAO{
 
     @Override
     public List<ArtistAndImpresario> getAll() throws SQLException {
-        return null;
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+        statement = con.createStatement();
+
+        List<ArtistAndImpresario> list = new ArrayList<>();
+        ResultSet rs = dataStorageJdbc.executeQuery("SELECT artist.id, artist.name, impresario.id, impresario.name" +
+                                                    " FROM artist LEFT JOIN artist_and_impresario ON artist.id = artist_and_impresario.id_artist" +
+                                                    " LEFT JOIN impresario ON artist_and_impresario.id_impresario = impresario.id");
+
+        while (rs.next()){
+            list.add(new ArtistAndImpresario(new Artist(rs.getInt("artist.id"), rs.getString("artist.name")),
+                     new Impresario(rs.getInt("impresario.id"), rs.getString("impresario.name"))));
+        }
+
+        statement.close();
+        con.close();
+        return list;
     }
 }

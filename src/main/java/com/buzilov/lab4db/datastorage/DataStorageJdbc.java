@@ -6,7 +6,8 @@ import javax.annotation.PostConstruct;
 import java.sql.*;
 
 @Component
-public class DataStorageJdbc {
+public interface
+DataStorageJdbc {
     private static final String url = "jdbc:mysql://localhost:3306/philharmonic_justbase";
     private static final String login = "root";
     private static final String password = "qwert";
@@ -44,7 +45,7 @@ public class DataStorageJdbc {
     }
 
     public void setStatement(Statement statement) {
-        this.statement = statement;
+
     }
 
     public static String getUrl() {

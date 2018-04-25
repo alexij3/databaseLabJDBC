@@ -78,7 +78,7 @@ public class DataStorageFake {
 
 
     public List<Impresario> impresarios = new ArrayList<>(
-            Arrays.asList(
+            /*Arrays.asList(
                     new Impresario(1, "Бабенко Петро Михайлович",
                             Set.of(Genre.Комедія, Genre.Драма,Genre.Фантастика)),
                     new Impresario(2, "Димитрук Світлана Вікторівна",
@@ -92,7 +92,7 @@ public class DataStorageFake {
                     new Impresario(6, "Мур Дмитро Павлович",
                             Set.of(Genre.Мелодрама, Genre.Пародія, Genre.Мюзикл, Genre.Симфонія))
 
-            )
+            )*/
     );
 
     /*public List<ArtistAndImpresario> artistAndImpresarios = new ArrayList<>(

@@ -29,8 +29,8 @@ public class ArtistAndImpresarioServiceImpl implements ArtistAndImpresarioServic
     }
 
     @Override
-    public void delete(int id) throws SQLException {
-        artistAndImpresarioDAO.delete(id);
+    public void delete(int id, int impresarioId) throws SQLException {
+        artistAndImpresarioDAO.delete(id, impresarioId);
     }
 
     @Override

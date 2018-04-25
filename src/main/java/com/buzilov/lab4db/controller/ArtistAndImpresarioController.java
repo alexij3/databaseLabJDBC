@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/artistimpresario")
 public class ArtistAndImpresarioController {
     @Autowired
     ArtistAndImpresarioServiceImpl artistAndImpresarioService;
 
-    @RequestMapping("/artistimpresario")
+    @RequestMapping("/showall")
     public List<ArtistAndImpresario> showArtistsAndImpresarios() throws SQLException{
         return artistAndImpresarioService.getAll();
     }
