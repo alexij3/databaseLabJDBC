@@ -8,8 +8,7 @@ import com.buzilov.lab4db.model.Impresario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,41 +20,52 @@ public class ArtistAndImpresarioDAOImpl implements ArtistAndImpresarioDAO{
     @Autowired
     DataStorageJdbc dataStorageJdbc;
 
+    Connection con;
+    Statement statement;
+
     @Override
-    public ArtistAndImpresario insertArtistAndImpresario(ArtistAndImpresario artistAndImpresario) {
-        dataStorage.getArtistAndImpresarios().add(artistAndImpresario);
+    public ArtistAndImpresario insert(ArtistAndImpresario artistAndImpresario) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArtistAndImpresario get(int id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArtistAndImpresario update(ArtistAndImpresario artistAndImpresario) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        System.out.println(artistAndImpresario.getArtist().getId());
+        System.out.println(artistAndImpresario.getImpresario().toString());
+        PreparedStatement update;
+        String updateArtistGenre = "UPDATE artist_and_impresario SET id_impresario = ? WHERE id_artist = ?";
+        update = con.prepareStatement(updateArtistGenre);
+        update.setInt(1, artistAndImpresario.getImpresario().getId());
+        update.setInt(2, artistAndImpresario.getArtist().getId());
+        System.out.println(update.executeUpdate());
+
+        con.close();
         return artistAndImpresario;
     }
 
     @Override
-    public ArtistAndImpresario getArtistAndImpresario(int id) {
-        return null;
+    public void delete(int id, int impresarioId) throws SQLException {
+        con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
+
+        PreparedStatement delete;
+        String deleteArtistGenre = "DELETE FROM artist_and_impresario WHERE id_artist = ? AND id_impresario = ?";
+        delete = con.prepareStatement(deleteArtistGenre);
+        delete.setInt(1, id);
+        delete.setInt(2, impresarioId);
+        delete.executeUpdate();
+
+        con.close();
     }
 
     @Override
-    public ArtistAndImpresario updateArtistAndImpresario(ArtistAndImpresario artistAndImpresario) {
+    public List<ArtistAndImpresario> getAll() throws SQLException {
         return null;
-    }
-
-    @Override
-    public ArtistAndImpresario deleteArtistAndImpresario(int id) {
-        return null;
-    }
-
-    @Override
-    public List<ArtistAndImpresario> getAll() throws SQLException{
-        List<ArtistAndImpresario> list = new ArrayList<>();
-        ResultSet rs = dataStorageJdbc.executeQuery("SELECT artist.id, artist.name, impresario.id, impresario.name" +
-                                                    "\nFROM artist_and_impresario JOIN artist ON artist.id = id_artist" +
-                                                    "\nJOIN impresario ON impresario.id = id_impresario" +
-                                                    "\nORDER BY artist.id, impresario.id");
-
-        while (rs.next()){
-            list.add(new ArtistAndImpresario(new Artist(rs.getInt("artist.id"), rs.getString("artist.name")),
-                    new Impresario(rs.getInt("impresario.id"), rs.getString("impresario.name"))));
-
-        }
-
-        return list;
     }
 }

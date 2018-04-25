@@ -28,12 +28,14 @@ public class ArtistGenreDAOImpl implements ArtistGenreDAO {
     public ArtistGenre update(ArtistGenre artistGenre) throws SQLException {
         con = DriverManager.getConnection(dataStorageJdbc.getUrl(), dataStorageJdbc.getLogin(), dataStorageJdbc.getPassword());
 
+        System.out.println(artistGenre.getArtist().getId());
+        System.out.println(artistGenre.getGenre().toString());
         PreparedStatement update;
         String updateArtistGenre = "UPDATE artist_and_genre SET genre = ? WHERE id_artist = ?";
-        update = dataStorageJdbc.getCon().prepareStatement(updateArtistGenre);
+        update = con.prepareStatement(updateArtistGenre);
         update.setString(1, artistGenre.getGenre().toString());
         update.setInt(2, artistGenre.getArtist().getId());
-        update.executeUpdate();
+        System.out.println(update.executeUpdate());
 
         con.close();
         return artistGenre;
@@ -59,7 +61,7 @@ public class ArtistGenreDAOImpl implements ArtistGenreDAO {
 
         PreparedStatement insert;
         String insertArtistGenre = "INSERT INTO artist_and_genre (id_artist, genre) VALUES (?, ?)";
-        insert = dataStorageJdbc.getCon().prepareStatement(insertArtistGenre);
+        insert = con.prepareStatement(insertArtistGenre);
         insert.setInt(1, artistGenre.getArtist().getId());
         insert.setString(2, artistGenre.getGenre().toString());
         insert.executeUpdate();

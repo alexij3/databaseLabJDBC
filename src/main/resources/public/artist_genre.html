@@ -33,7 +33,7 @@
                 <td>{{item.genre.toString()}}</td>
                 <td>
                     <button type="create" class="btn-success" data-toggle="modal" data-target="#addModal" ng-click="artistGenreCtrl.startAddGenre(item.artist.id, item.artist.name)">Створити</button>
-                    <button id="update" ng-click="artistGenreCtrl.startUpdateGenres(item.artist.id, item.artist.name)" class="btn-warning" data-toggle="modal" data-target="#editModal">Edit</button>
+                    <button id="update" ng-click="artistGenreCtrl.startUpdateGenres(item.artist.id, item.artist.name, item.genre.toString())" class="btn-warning" data-toggle="modal" data-target="#editModal">Edit</button>
                     <button id="delete" ng-click="artistGenreCtrl.deleteGenre(item.artist.id, item.genre.toString())" class="btn-danger">Del</button>
                 </td>
             </tr>

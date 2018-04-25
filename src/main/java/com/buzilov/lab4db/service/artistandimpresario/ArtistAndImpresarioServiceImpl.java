@@ -14,23 +14,23 @@ public class ArtistAndImpresarioServiceImpl implements ArtistAndImpresarioServic
     ArtistAndImpresarioDAOImpl artistAndImpresarioDAO;
 
     @Override
-    public ArtistAndImpresario insertArtistAndImpresario(ArtistAndImpresario artistAndImpresario) {
-        return artistAndImpresarioDAO.insertArtistAndImpresario(artistAndImpresario);
+    public ArtistAndImpresario insert(ArtistAndImpresario artistAndImpresario) throws SQLException {
+        return artistAndImpresarioDAO.insert(artistAndImpresario);
     }
 
     @Override
-    public ArtistAndImpresario getArtistAndImpresario(int id) {
-        return null;
+    public ArtistAndImpresario get(int id) throws SQLException {
+        return artistAndImpresarioDAO.get(id);
     }
 
     @Override
-    public ArtistAndImpresario updateArtistAndImpresario(ArtistAndImpresario artistAndImpresario) {
-        return null;
+    public ArtistAndImpresario update(ArtistAndImpresario artistAndImpresario) throws SQLException {
+        return artistAndImpresarioDAO.update(artistAndImpresario);
     }
 
     @Override
-    public ArtistAndImpresario deleteArtistAndImpresario(int id) {
-        return null;
+    public void delete(int id) throws SQLException {
+        artistAndImpresarioDAO.delete(id);
     }
 
     @Override
