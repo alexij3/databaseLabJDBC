@@ -124,7 +124,7 @@ public class DataStorageFake {
     );
 
     public List<CinemaMovie> cinemaMovies = new ArrayList<>(
-            Arrays.asList(
+            /*Arrays.asList(
                     new CinemaMovie(1, "Перший фільм", "Комедія", cinemas.get(0), new Date(2018-14-01)),
                     new CinemaMovie(2, "Другий фільм", "Комедія", cinemas.get(1), new Date(2017-12-27)),
                     new CinemaMovie(3, "Третій фільм", "Боєвик", cinemas.get(2), new Date(2018-03-04)),
@@ -135,7 +135,7 @@ public class DataStorageFake {
                     new CinemaMovie(8, "Восьмий фільм", "Фантастика", cinemas.get(7), new Date(2018-02-27)),
                     new CinemaMovie(9, "Дев'ятий фільм", "Комедія", cinemas.get(8), new Date(2018-02-10)),
                     new CinemaMovie(10, "Десятий фільм", "Драма", cinemas.get(9), new Date(2018-02-15))
-            )
+            )*/
     );
 
     public List<ConcertHall> concertHalls = new ArrayList<>(

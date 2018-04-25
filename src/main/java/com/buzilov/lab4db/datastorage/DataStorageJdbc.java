@@ -11,8 +11,8 @@ public class DataStorageJdbc {
     private static final String login = "root";
     private static final String password = "qwert";
 
-    Connection con;
-    Statement statement;
+    private Connection con;
+    private Statement statement;
 
     @PostConstruct
     public void init() throws SQLException {
@@ -45,5 +45,17 @@ public class DataStorageJdbc {
 
     public void setStatement(Statement statement) {
         this.statement = statement;
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getLogin() {
+        return login;
+    }
+
+    public static String getPassword() {
+        return password;
     }
 }

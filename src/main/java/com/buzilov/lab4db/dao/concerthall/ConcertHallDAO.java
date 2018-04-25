@@ -8,6 +8,6 @@ public interface ConcertHallDAO {
     ConcertHall insertConcertHall(ConcertHall concertHall);
     ConcertHall getConcertHall(int id);
     ConcertHall updateConcertHall(ConcertHall concertHall);
-    ConcertHall deleteConcertHall(int id);
+    void deleteConcertHall(int id);
     List<ConcertHall> getAll();
 }

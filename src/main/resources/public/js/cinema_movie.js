@@ -1,7 +1,9 @@
 var app = angular.module("demo", []);
 
 app.controller("CinemaMovieCtrl", function($scope, $http){
-    $http.get('/api/cinema/showAll').then(function(response) {
+    var idToUpdate;
+
+    $http.get('/api/cinema/showall').then(function(response) {
         console.log(response);
         var cinemas = response.data;
         var select = document.getElementById('CinemaMovieCinema');
@@ -29,7 +31,7 @@ app.controller("CinemaMovieCtrl", function($scope, $http){
 
     });
 
-    var idToUpdate;
+
 
     $scope.cinemaMovies = [];
      $http.get('/api/cinemamovie/showAll').then(function (response){
@@ -47,10 +49,10 @@ app.controller("CinemaMovieCtrl", function($scope, $http){
 
     this.startCreateCinemaMovie = function startCreateCinemaMovie(){
 
-
     };
 
     this.createCinemaMovie = function createCinemaMovie(){
+        var id = document.getElementById('CinemaMovieId').value;
         var cinemaId = document.getElementById('CinemaMovieCinema').value;
         var name = document.getElementById('CinemaMovieName').value;
         var genre = document.getElementById('CinemaMovieGenre').value;
@@ -58,14 +60,13 @@ app.controller("CinemaMovieCtrl", function($scope, $http){
 
         var request = {
             method: 'POST',
-            url: '/api/cinemamovie/create',
+            url: '/api/cinemamovie/create?id=' + id,
             data: {
                 name : name,
                 genre: genre,
                 cinemaId: cinemaId,
                 date: date
             }
-
         };
 
         $http(request).then(function(response){
@@ -75,16 +76,13 @@ app.controller("CinemaMovieCtrl", function($scope, $http){
         window.location.reload();
     };
 
-    this.startUpdateCinemaMovie = function startUpdateCinemaMovie(id, name, genre, cinemaId, date){
-
-        document.getElementById('updateCinemaMovieName').value = name;
-        document.getElementById('updateCinemaMovieGenre').value = genre;
-        document.getElementById('updateCinemaMovieCinema').value = cinemaId;
-        document.getElementById('updateDatePicker').value = date;
-
-
-
+    this.startUpdateCinemaMovie = function startUpdateCinemaMovie(id, name, genre, cinemaId, date) {
         idToUpdate = id;
+            document.getElementById('updateCinemaMovieName').value = name;
+            document.getElementById('updateCinemaMovieGenre').value = genre;
+            document.getElementById('updateCinemaMovieCinema').value = cinemaId;
+            document.getElementById('updateDatePicker').value = date;
+
     };
 
     this.updateCinemaMovie = function updateCinemaMovie(){

@@ -1,19 +1,49 @@
 package com.buzilov.lab4db.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CinemaMovie {
     private int id;
     private String name;
-    private String genre;
+    private Genre genre;
     private Cinema cinema;
-    private Date date;
+    private int cinemaId;
 
-    public CinemaMovie(int id, String name, String genre, Cinema cinema, Date date) {
+    private LocalDate date;
+
+    public CinemaMovie() {
+    }
+
+    public CinemaMovie(int id, String name, Genre genre, Cinema cinema, int cinemaId, LocalDate date) {
         this.id = id;
         this.name = name;
         this.genre = genre;
         this.cinema = cinema;
+        this.cinemaId = cinemaId;
+        this.date = date;
+    }
+
+    public CinemaMovie(int id, String name, Genre genre, int cinemaId, LocalDate date) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.cinemaId = cinemaId;
+        this.date = date;
+    }
+
+    public CinemaMovie(String name, Genre genre, LocalDate date) {
+        this.name = name;
+        this.genre = genre;
+        if (date == null) {
+            this.date = LocalDate.of(2018, 1, 1);
+        }else this.date = date;
+    }
+
+    public CinemaMovie(String name, Genre genre, Cinema cinema, int cinemaId, LocalDate date) {
+        this.name = name;
+        this.genre = genre;
+        this.cinema = cinema;
+        this.cinemaId = cinemaId;
         this.date = date;
     }
 
@@ -22,12 +52,12 @@ public class CinemaMovie {
         return "CinemaMovie{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", genre='" + genre + '\'' +
+                ", genre=" + genre +
                 ", cinema=" + cinema +
+                ", cinemaId=" + cinemaId +
                 ", date=" + date +
                 '}';
     }
-
 
     public Cinema getCinema() {
         return cinema;
@@ -35,6 +65,14 @@ public class CinemaMovie {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
     }
 
     public int getId() {
@@ -53,19 +91,20 @@ public class CinemaMovie {
         this.name = name;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
+
 }

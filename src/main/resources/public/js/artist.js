@@ -62,7 +62,6 @@ app.controller("ArtistCtrl", function($scope, $http){
 
     this.getArtist = function getArtist(id){
         $http.get('/api/artist/get?id=' + id);
-        $scope.artists;
     }
 });
 

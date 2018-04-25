@@ -18,45 +18,26 @@ public class ConcertHallDAOImpl implements ConcertHallDAO {
 
     @Override
     public ConcertHall insertConcertHall(ConcertHall concertHall) {
-        dataStorage.getConcertHalls().add(concertHall);
-        return concertHall;
+        return null;
     }
 
     @Override
     public ConcertHall getConcertHall(int id) {
-        return dataStorage.getConcertHalls().stream()
-                .filter(el -> el.getId() == id)
-                .findFirst().orElse(null);
+        return null;
     }
 
     @Override
     public ConcertHall updateConcertHall(ConcertHall concertHall) {
-        for(ConcertHall hall: dataStorage.getConcertHalls())
-        {
-            if(hall.getId() == concertHall.getId())
-            {
-                hall.setName(concertHall.getName());
-                hall.setAddress(concertHall.getAddress());
-                hall.setCapacity(concertHall.getCapacity());
-                break;
-            }
-        }
-        return concertHall;
+        return null;
     }
 
     @Override
-    public ConcertHall deleteConcertHall(int id) {
-        ConcertHall concertHall = dataStorage.getConcertHalls()
-                .stream()
-                .filter(el -> el.getId() == id)
-                .findFirst()
-                .get();
-        dataStorage.getConcertHalls().remove(concertHall);
-        return concertHall;
+    public void deleteConcertHall(int id) {
+
     }
 
     @Override
     public List<ConcertHall> getAll() {
-        return dataStorage.getConcertHalls();
+        return null;
     }
 }

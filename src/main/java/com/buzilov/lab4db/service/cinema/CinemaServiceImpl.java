@@ -14,23 +14,23 @@ public class CinemaServiceImpl implements CinemaService {
     CinemaDAOImpl cinemaDAO;
 
     @Override
-    public Cinema insertCinema(Cinema cinema) {
+    public Cinema insertCinema(Cinema cinema)throws SQLException {
         return cinemaDAO.insertCinema(cinema);
     }
 
     @Override
-    public Cinema getCinema(int id) {
+    public Cinema getCinema(int id)throws SQLException {
         return cinemaDAO.getCinema(id);
     }
 
     @Override
-    public Cinema updateCinema(Cinema cinema) {
+    public Cinema updateCinema(Cinema cinema)throws SQLException {
         return cinemaDAO.updateCinema(cinema);
     }
 
     @Override
-    public Cinema deleteCinema(int id) {
-        return cinemaDAO.deleteCinema(id);
+    public void deleteCinema(int id)throws SQLException {
+        cinemaDAO.deleteCinema(id);
     }
 
     @Override
